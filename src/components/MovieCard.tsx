@@ -8,7 +8,7 @@ function MovieCard({ movie }: { movie: MovieDto }) {
   return (
     <Card onClick={() => navigate(`/movie/${movie.id}`)}>
       {/*{JSON.stringify(movie)}*/}
-      {movie.poster && <CardMedia component="img" image={movie.poster.url} />}
+      {movie.poster && <CardMedia component="img" image={movie.poster.previewUrl} />}
       <CardContent>
         <Typography variant="h5">{movie.name}</Typography>
         <Typography variant="body2">{movie.year}</Typography>
