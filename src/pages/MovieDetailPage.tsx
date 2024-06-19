@@ -1,7 +1,7 @@
-import { Container, Typography, Box, Rating, Stack, Grid } from "@mui/material";
+import { Box, Container, Grid, Rating, Stack, Typography } from "@mui/material";
 import { useGetMovieByIdQuery } from "../redux/api.ts";
 import { useParams } from "react-router-dom";
-import { Poster } from "../components/Poster.tsx";
+import FavoriteButton from "../components/FavoriteButton.tsx";
 
 function MovieDetailPage() {
   const { id } = useParams();
@@ -22,16 +22,32 @@ function MovieDetailPage() {
   return (
     <Container>
       <Stack direction="row" p={2} spacing={2}>
-        <Poster poster={movie.poster} />
+        {movie.poster && (
+          <img
+            src={movie.poster.url}
+            alt={movie.name}
+            style={{ width: "300px", height: "auto" }}
+          />
+        )}
         <Stack spacing={2}>
           <Box>
             <Typography variant="h4" component="h1">
-              {movie.name}
+              {movie.name ?? movie.alternativeName ?? movie.enName}
             </Typography>
             <Typography variant="h6" component="h2">
               {movie.alternativeName}
             </Typography>
           </Box>
+
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={2}
+          >
+            <Typography>Add to favorites</Typography>
+            <FavoriteButton movie={movie} color={"black"} />
+          </Stack>
 
           <Box>
             <Typography variant="h6" component="h3" gutterBottom>
@@ -42,13 +58,13 @@ function MovieDetailPage() {
                 <Typography>Description</Typography>
               </Grid>
               <Grid item xs={9}>
-                {movie.description ?? "-"}
+                <Typography>{movie.description ?? "-"}</Typography>
               </Grid>
               <Grid item xs={3}>
                 <Typography>Release Date</Typography>
               </Grid>
               <Grid item xs={9}>
-                {movie.year}
+                <Typography>{movie.year}</Typography>
               </Grid>
               <Grid item xs={3}>
                 <Typography>Genres</Typography>
@@ -64,7 +80,7 @@ function MovieDetailPage() {
               <Grid item xs={9}>
                 <Rating
                   name="half-rating"
-                  defaultValue={movie.rating.imdb}
+                  defaultValue={movie.rating.imdb || movie.rating.kp}
                   precision={0.5}
                   readOnly
                 />

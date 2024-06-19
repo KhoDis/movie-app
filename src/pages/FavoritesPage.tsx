@@ -9,7 +9,9 @@ export default function FavoritesPage() {
 
   return (
     <Container>
-      <Typography variant="h3">Favorites</Typography>
+      <Typography variant="h3" mt={2}>
+        Favorites
+      </Typography>
       <Box my={4}>
         <Grid container spacing={2}>
           {favorites.map((movie) => (
