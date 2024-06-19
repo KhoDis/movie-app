@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container, Box, Typography } from '@mui/material';
 import MovieList from "../components/MovieList.tsx";
+import Filter from "../components/Filter.tsx";
+import { FilterConfig } from "../types.ts";
 
 function HomePage() {
-  // const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState<FilterConfig>({
+    genres: [],
+    rating: [0, 10],
+    year: [1990, new Date().getFullYear()],
+  });
+
+  const handleFilterChange = (newFilters: FilterConfig) => {
+    setFilters(newFilters);
+  };
 
   return (
     <Container>
@@ -11,7 +21,8 @@ function HomePage() {
         <Typography variant="h3" gutterBottom>
           Movie App
         </Typography>
-        <MovieList filters={{}}/>
+        <Filter onFilterChange={handleFilterChange} />
+        <MovieList filters={filters} />
       </Box>
     </Container>
   );

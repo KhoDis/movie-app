@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { FilterConfig } from "./types.ts";
 
 const API_KEY = import.meta.env.VITE_KINOPOISK_API_KEY;
 
@@ -26,6 +27,11 @@ export type RatingDto = {
   imdb: number,
 }
 
+export type ShortImage = {
+  url: string,
+  previewUrl: string,
+}
+
 export const movieApi = createApi({
   reducerPath: 'movieApi',
   baseQuery: fetchBaseQuery({
@@ -36,13 +42,16 @@ export const movieApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getMovies: builder.query<MovieDocsResponseDto, { page: number, filters: any }>({
+    getMovies: builder.query<MovieDocsResponseDto, { page: number, filters: FilterConfig }>({
       query: ({ page, filters }) => {
-        const params = new URLSearchParams({
-          page: page.toString(),
-          limit: '50',
-          ...filters,
+        const params = new URLSearchParams();
+        params.append('page', page.toString());
+        params.append('limit', '50');
+        filters.genres.forEach(genre => {
+          params.append('genres.name', genre);
         });
+        params.append('rating.kp', filters.rating.join('-'));
+        params.append('year', filters.year.join('-'));
         return `movie?${params.toString()}`;
       },
     }),
@@ -53,3 +62,26 @@ export const movieApi = createApi({
 });
 
 export const { useGetMoviesQuery, useGetMovieByIdQuery } = movieApi;
+
+type GenreDto = {
+  name: string,
+  slug: string,
+}
+
+export const valuesApi = createApi({
+  reducerPath: 'valuesApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://api.kinopoisk.dev/v1/movie/',
+    prepareHeaders: (headers) => {
+      headers.set('X-API-KEY', API_KEY as string);
+      return headers;
+    },
+  }),
+  endpoints: (builder) => ({
+    getGenres: builder.query<GenreDto[], void>({
+      query: () => `possible-values-by-field?field=genres.name`,
+    }),
+  }),
+});
+
+export const { useGetGenresQuery } = valuesApi;

@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
 import { Grid, Pagination, Box, Typography } from '@mui/material';
 import { useGetMoviesQuery } from "../api.ts";
+import { FilterConfig } from "../types.ts";
 
-interface MovieListProps {
-  filters: any;
-}
-
-function MovieList({ filters }) {
+function MovieList({ filters }: {filters: FilterConfig}) {
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetMoviesQuery({ page, filters });
 
@@ -20,7 +17,7 @@ function MovieList({ filters }) {
   }
 
   if (error) {
-    return <Typography>Error: {error}</Typography>;
+    return <Typography>Error: {JSON.stringify(error)}</Typography>;
   }
 
   return (
