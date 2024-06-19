@@ -1,52 +1,43 @@
 import { ReactNode, useState } from "react";
-import {
-  Button,
-  Slider,
-  Chip,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-  Box,
-  Stack,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Box, Button, Chip, Divider, Slider, Stack, Typography } from "@mui/material";
 import { useGetGenresQuery } from "../api";
 import { FilterConfig } from "../types.ts";
 
 function FilterOption({
-  title,
-  children,
-}: {
+                        title,
+                        children
+                      }: {
   title: string;
   children: ReactNode;
 }) {
   return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography>{title}</Typography>
-      </AccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
-    </Accordion>
+    <Stack direction="column">
+      <Typography variant="subtitle1" gutterBottom>{title}</Typography>
+      <Box>
+        {children}
+      </Box>
+    </Stack>
   );
 }
 
 function Filter({
-  onFilterChange,
-}: {
+                  defaultValues,
+                  onFilterChange,
+    onClose
+                }: {
+  defaultValues: FilterConfig;
   onFilterChange: (filters: FilterConfig) => void;
+  onClose: () => void;
 }) {
-  const [pickedGenres, setPickedGenres] = useState<string[]>([]);
-  const [rating, setRating] = useState<[number, number]>([0, 10]);
-  const [year, setYear] = useState<[number, number]>([
-    1990,
-    new Date().getFullYear(),
-  ]);
+  const [pickedGenres, setPickedGenres] = useState<string[]>(defaultValues.genres);
+  const [rating, setRating] = useState<[number, number]>(defaultValues.rating);
+  const [year, setYear] = useState<[number, number]>(defaultValues.year);
 
   const { data: genres, error, isLoading } = useGetGenresQuery();
 
   const handleFilterChange = () => {
     onFilterChange({ genres: pickedGenres, rating, year });
+    onClose();
   };
 
   const handleGenreClick = (selectedGenre: string) => {
@@ -60,13 +51,15 @@ function Filter({
   };
 
   return (
-    <Stack>
-      <FilterOption title="Genres">
-        {isLoading ? (
-          <Typography>Loading genres...</Typography>
-        ) : error ? (
-          <Typography color="error">Error: {JSON.stringify(error)}</Typography>
-        ) : (
+    <Stack direction="column"
+           divider={<Divider orientation="horizontal" flexItem />}
+           spacing={2}>
+      {isLoading ? (
+        <Typography>Loading genres...</Typography>
+      ) : error ? (
+        <Typography color="error">Error: {JSON.stringify(error)}</Typography>
+      ) : (
+        <FilterOption title="Genres">
           <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
             {genres?.map((genre) => (
               <Chip
@@ -83,44 +76,48 @@ function Filter({
               />
             ))}
           </Box>
-        )}
-      </FilterOption>
+        </FilterOption>
+      )}
 
       <FilterOption title="Rating">
-        <Slider
-          getAriaLabel={(index) =>
-            index === 0 ? "Minimum rating" : "Maximum rating"
-          }
-          value={rating}
-          onChange={(_, value) => setRating(value as [number, number])}
-          valueLabelDisplay="auto"
-          min={0}
-          max={10}
-          marks={[
-            { value: 0, label: "0" },
-            { value: 10, label: "10" },
-          ]}
-        />
+        <Box px={2}>
+          <Slider
+            getAriaLabel={(index) =>
+              index === 0 ? "Minimum rating" : "Maximum rating"
+            }
+            value={rating}
+            onChange={(_, value) => setRating(value as [number, number])}
+            valueLabelDisplay="auto"
+            min={0}
+            max={10}
+            marks={[
+              { value: 0, label: "0" },
+              { value: 10, label: "10" }
+            ]}
+          />
+        </Box>
       </FilterOption>
 
       <FilterOption title="Year">
-        <Slider
-          getAriaLabel={(index) =>
-            index === 0 ? "Minimum year" : "Maximum year"
-          }
-          value={year}
-          onChange={(_, value) => setYear(value as [number, number])}
-          valueLabelDisplay="auto"
-          min={1990}
-          max={new Date().getFullYear()}
-          marks={[
-            { value: 1990, label: "1990" },
-            {
-              value: new Date().getFullYear(),
-              label: new Date().getFullYear().toString(),
-            },
-          ]}
-        />
+        <Box px={2}>
+          <Slider
+            getAriaLabel={(index) =>
+              index === 0 ? "Minimum year" : "Maximum year"
+            }
+            value={year}
+            onChange={(_, value) => setYear(value as [number, number])}
+            valueLabelDisplay="auto"
+            min={1990}
+            max={new Date().getFullYear()}
+            marks={[
+              { value: 1990, label: "1990" },
+              {
+                value: new Date().getFullYear(),
+                label: new Date().getFullYear().toString()
+              }
+            ]}
+          />
+        </Box>
       </FilterOption>
 
       <Stack direction="row" justifyContent="flex-end" mt={2}>
