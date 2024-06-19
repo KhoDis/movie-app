@@ -7,7 +7,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 function FilterDialog({ open, onClose, handleFilterChange, defaultValues }: {
   open: boolean;
-  onClose: (value: string) => void;
+  onClose: () => void;
   handleFilterChange: (filters: FilterConfig) => void;
   defaultValues: FilterConfig;
 }) {
@@ -31,7 +31,7 @@ function Filters({ filters, handleFilterChange }: {
     setOpen(true);
   };
 
-  const handleClose = (value: string) => {
+  const handleClose = () => {
     setOpen(false);
   };
 
