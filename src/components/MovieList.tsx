@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import MovieCard from './MovieCard';
-import { Grid, Pagination, Box, Typography } from '@mui/material';
+import { useState, useEffect } from "react";
+import MovieCard from "./MovieCard";
+import { Grid, Pagination, Box, Typography } from "@mui/material";
 import { useGetMoviesQuery } from "../api.ts";
 import { FilterConfig } from "../types.ts";
 
-function MovieList({ filters }: {filters: FilterConfig}) {
+function MovieList({ filters }: { filters: FilterConfig }) {
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetMoviesQuery({ page, filters });
 

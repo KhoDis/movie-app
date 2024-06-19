@@ -1,57 +1,66 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { FilterConfig } from "./types.ts";
 
 const API_KEY = import.meta.env.VITE_KINOPOISK_API_KEY;
 
 export type MovieDocsResponseDto = {
-  docs: MovieDto[],
-  total: number,
-  limit: number,
-  page: number,
-  pages: number,
-}
+  docs: MovieDto[];
+  total: number;
+  limit: number;
+  page: number;
+  pages: number;
+};
 
 export type MovieDto = {
-  id: string,
-  name: string,
-  type: 'movie' | 'tv-series' | 'cartoon' | 'anime' | 'animated-series' | 'tv-show',
-  year: number,
-  description: string,
-  rating: RatingDto,
-  genres: string[],
-  poster: ShortImage,
-}
+  id: string;
+  name: string;
+  type:
+    | "movie"
+    | "tv-series"
+    | "cartoon"
+    | "anime"
+    | "animated-series"
+    | "tv-show";
+  year: number;
+  description: string;
+  rating: RatingDto;
+  genres: string[];
+  poster: ShortImage;
+};
 
 export type RatingDto = {
-  kp: number,
-  imdb: number,
-}
+  kp: number;
+  imdb: number;
+};
 
 export type ShortImage = {
-  url: string,
-  previewUrl: string,
-}
+  url: string;
+  previewUrl: string;
+};
 
 export const movieApi = createApi({
-  reducerPath: 'movieApi',
+  reducerPath: "movieApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.kinopoisk.dev/v1.4/',
+    baseUrl: "https://api.kinopoisk.dev/v1.4/",
     prepareHeaders: (headers) => {
-      headers.set('X-API-KEY', API_KEY as string);
+      headers.set("X-API-KEY", API_KEY as string);
       return headers;
     },
   }),
   endpoints: (builder) => ({
-    getMovies: builder.query<MovieDocsResponseDto, { page: number, filters: FilterConfig }>({
+    getMovies: builder.query<
+      MovieDocsResponseDto,
+      { page: number; filters: FilterConfig }
+    >({
       query: ({ page, filters }) => {
         const params = new URLSearchParams();
-        params.append('page', page.toString());
-        params.append('limit', '50');
-        filters.genres.forEach(genre => {
-          params.append('genres.name', genre);
+        params.append("page", page.toString());
+        params.append("limit", "50");
+        filters.genres.forEach((genre) => {
+          params.append("genres.name", genre);
         });
-        params.append('rating.kp', filters.rating.join('-'));
-        params.append('year', filters.year.join('-'));
+        params.append("rating.kp", filters.rating.join("-"));
+        params.append("year", filters.year.join("-"));
         return `movie?${params.toString()}`;
       },
     }),
@@ -64,16 +73,16 @@ export const movieApi = createApi({
 export const { useGetMoviesQuery, useGetMovieByIdQuery } = movieApi;
 
 type GenreDto = {
-  name: string,
-  slug: string,
-}
+  name: string;
+  slug: string;
+};
 
 export const valuesApi = createApi({
-  reducerPath: 'valuesApi',
+  reducerPath: "valuesApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.kinopoisk.dev/v1/movie/',
+    baseUrl: "https://api.kinopoisk.dev/v1/movie/",
     prepareHeaders: (headers) => {
-      headers.set('X-API-KEY', API_KEY as string);
+      headers.set("X-API-KEY", API_KEY as string);
       return headers;
     },
   }),

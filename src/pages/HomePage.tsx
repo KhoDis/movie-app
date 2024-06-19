@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Container, Box, Typography } from '@mui/material';
+import { useState } from "react";
+import { Container, Box, Typography } from "@mui/material";
 import MovieList from "../components/MovieList.tsx";
 import Filter from "../components/Filter.tsx";
 import { FilterConfig } from "../types.ts";

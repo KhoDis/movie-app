@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { movieApi, valuesApi } from './api';
+import { configureStore } from "@reduxjs/toolkit";
+import { movieApi, valuesApi } from "./api";
 
 export const store = configureStore({
   reducer: {
@@ -7,7 +7,9 @@ export const store = configureStore({
     [valuesApi.reducerPath]: valuesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(movieApi.middleware).concat(valuesApi.middleware),
+    getDefaultMiddleware()
+      .concat(movieApi.middleware)
+      .concat(valuesApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
