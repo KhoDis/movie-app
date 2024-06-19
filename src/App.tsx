@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import MovieIcon from '@mui/icons-material/Movie';
 import MovieDetailPage from "./pages/MovieDetailPage.tsx";
+import FavoritesPage from "./pages/FavoritesPage.tsx";
 
 function ButtonAppBar() {
   const navigate = useNavigate();
