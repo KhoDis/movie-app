@@ -1,5 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { Box, Card, CardContent, CardMedia, Rating, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Rating,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { MovieDto } from "../api.ts";
 import { BrokenImage } from "@mui/icons-material";
 
@@ -16,7 +24,11 @@ function MovieCard({ movie }: { movie: MovieDto }) {
             sx={{ height: 400 }}
           />
         ) : (
-          <Stack justifyContent="center" alignItems="center" sx={{ height: 400 }}>
+          <Stack
+            justifyContent="center"
+            alignItems="center"
+            sx={{ height: 400 }}
+          >
             <BrokenImage fontSize="large" />
             No available preview
           </Stack>
@@ -29,16 +41,19 @@ function MovieCard({ movie }: { movie: MovieDto }) {
             width: "100%",
             bgcolor: "rgba(0, 0, 0, 0.54)",
             color: "white",
-            padding: "10px"
+            padding: "10px",
           }}
         >
-          {movie.rating.imdb
-            ? <Rating name="half-rating" defaultValue={movie.rating.imdb} precision={0.5} readOnly /> :
-            <Typography variant="body2">
-              No rating yet
-            </Typography>
-          }
-
+          {movie.rating.imdb ? (
+            <Rating
+              name="half-rating"
+              defaultValue={movie.rating.imdb}
+              precision={0.5}
+              readOnly
+            />
+          ) : (
+            <Typography variant="body2">No rating yet</Typography>
+          )}
         </Box>
       </Box>
       <CardContent>
