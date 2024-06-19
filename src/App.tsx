@@ -1,14 +1,20 @@
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import {
   AppBar,
   Box,
-  Button, Container,
+  Button,
+  Container,
   IconButton,
   Toolbar,
-  Typography
+  Typography,
 } from "@mui/material";
-import MovieIcon from '@mui/icons-material/Movie';
+import MovieIcon from "@mui/icons-material/Movie";
 import MovieDetailPage from "./pages/MovieDetailPage.tsx";
 import FavoritesPage from "./pages/FavoritesPage.tsx";
 
@@ -28,12 +34,14 @@ function ButtonAppBar() {
               sx={{ my: 2 }}
               onClick={() => navigate(`/`)}
             >
-              <MovieIcon fontSize="large"/>
+              <MovieIcon fontSize="large" />
             </IconButton>
             <Typography variant="h4" component="h4" m={2} sx={{ flexGrow: 1 }}>
               Movie App
             </Typography>
-            <Button color="inherit" onClick={() => navigate("/favorites")}>Favorites</Button>
+            <Button color="inherit" onClick={() => navigate("/favorites")}>
+              Favorites
+            </Button>
           </Toolbar>
         </Container>
       </AppBar>

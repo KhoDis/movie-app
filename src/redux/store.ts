@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { movieApi, valuesApi } from "./api.ts";
-import storage from "redux-persist/lib/storage"
-import {persistReducer} from "redux-persist"
-import {combineReducers} from "@reduxjs/toolkit"
+import storage from "redux-persist/lib/storage";
+import { persistReducer } from "redux-persist";
+import { combineReducers } from "@reduxjs/toolkit";
 import { favoritesSlice } from "./features/favoritesSlice.ts";
 
 const persistConfig = {
   key: "root",
   version: 1,
-  storage
-}
+  storage,
+};
 
 const reducer = combineReducers({
   favorites: favoritesSlice.reducer,

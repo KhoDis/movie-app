@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Poster } from "../components/Poster.tsx";
 
 function MovieDetailPage() {
-  const {id} = useParams();
+  const { id } = useParams();
   const { data: movie, error, isLoading } = useGetMovieByIdQuery(id!);
 
   if (isLoading) {
@@ -12,25 +12,31 @@ function MovieDetailPage() {
   }
 
   if (error) {
-    return <div>Something went wrong: {JSON.stringify(error)}</div>
+    return <div>Something went wrong: {JSON.stringify(error)}</div>;
   }
 
   if (!movie) {
-    return <div>Something went wrong. Reload the page</div>
+    return <div>Something went wrong. Reload the page</div>;
   }
 
   return (
     <Container>
       <Stack direction="row" p={2} spacing={2}>
-        <Poster poster={movie.poster}/>
+        <Poster poster={movie.poster} />
         <Stack spacing={2}>
           <Box>
-            <Typography variant="h4" component="h1">{movie.name}</Typography>
-            <Typography variant="h6" component="h2">{movie.alternativeName}</Typography>
+            <Typography variant="h4" component="h1">
+              {movie.name}
+            </Typography>
+            <Typography variant="h6" component="h2">
+              {movie.alternativeName}
+            </Typography>
           </Box>
 
           <Box>
-            <Typography variant="h6" component="h3" gutterBottom>About Movie</Typography>
+            <Typography variant="h6" component="h3" gutterBottom>
+              About Movie
+            </Typography>
             <Grid container spacing={2}>
               <Grid item xs={3}>
                 <Typography>Description</Typography>
@@ -48,7 +54,9 @@ function MovieDetailPage() {
                 <Typography>Genres</Typography>
               </Grid>
               <Grid item xs={9}>
-                <Typography>{movie.genres.map(x => x.name).join(", ")}</Typography>
+                <Typography>
+                  {movie.genres.map((x) => x.name).join(", ")}
+                </Typography>
               </Grid>
               <Grid item xs={3}>
                 <Typography>Rating</Typography>

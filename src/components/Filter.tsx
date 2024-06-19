@@ -1,35 +1,45 @@
 import { ReactNode, useState } from "react";
-import { Box, Button, Chip, Divider, Slider, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  Divider,
+  Slider,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useGetGenresQuery } from "../redux/api.ts";
 import { FilterConfig } from "../types.ts";
 
 function FilterOption({
-                        title,
-                        children
-                      }: {
+  title,
+  children,
+}: {
   title: string;
   children: ReactNode;
 }) {
   return (
     <Stack direction="column">
-      <Typography variant="subtitle1" gutterBottom>{title}</Typography>
-      <Box>
-        {children}
-      </Box>
+      <Typography variant="subtitle1" gutterBottom>
+        {title}
+      </Typography>
+      <Box>{children}</Box>
     </Stack>
   );
 }
 
 function Filter({
-                  defaultValues,
-                  onFilterChange,
-    onClose
-                }: {
+  defaultValues,
+  onFilterChange,
+  onClose,
+}: {
   defaultValues: FilterConfig;
   onFilterChange: (filters: FilterConfig) => void;
   onClose: () => void;
 }) {
-  const [pickedGenres, setPickedGenres] = useState<string[]>(defaultValues.genres);
+  const [pickedGenres, setPickedGenres] = useState<string[]>(
+    defaultValues.genres,
+  );
   const [rating, setRating] = useState<[number, number]>(defaultValues.rating);
   const [year, setYear] = useState<[number, number]>(defaultValues.year);
 
@@ -51,9 +61,11 @@ function Filter({
   };
 
   return (
-    <Stack direction="column"
-           divider={<Divider orientation="horizontal" flexItem />}
-           spacing={2}>
+    <Stack
+      direction="column"
+      divider={<Divider orientation="horizontal" flexItem />}
+      spacing={2}
+    >
       {isLoading ? (
         <Typography>Loading genres...</Typography>
       ) : error ? (
@@ -92,7 +104,7 @@ function Filter({
             max={10}
             marks={[
               { value: 0, label: "0" },
-              { value: 10, label: "10" }
+              { value: 10, label: "10" },
             ]}
           />
         </Box>
@@ -113,8 +125,8 @@ function Filter({
               { value: 1990, label: "1990" },
               {
                 value: new Date().getFullYear(),
-                label: new Date().getFullYear().toString()
-              }
+                label: new Date().getFullYear().toString(),
+              },
             ]}
           />
         </Box>

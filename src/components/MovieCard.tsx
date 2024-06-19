@@ -1,18 +1,32 @@
 import { useNavigate } from "react-router-dom";
-import { Box, Card, CardContent, Rating, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Rating,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { MovieDto } from "../redux/api.ts";
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks.ts";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { addFavorite, removeFavorite } from "../redux/features/favoritesSlice.ts";
+import {
+  addFavorite,
+  removeFavorite,
+} from "../redux/features/favoritesSlice.ts";
 import { Poster } from "./Poster.tsx";
 
 function MovieCard({ movie }: { movie: MovieDto }) {
-  const favorites = useAppSelector((state) => state.persistedReducer.favorites.movies);
+  const favorites = useAppSelector(
+    (state) => state.persistedReducer.favorites.movies,
+  );
   const dispatch = useAppDispatch();
   const [isFavorite, setIsFavorite] = useState<boolean>(() => {
-    const isFavoriteMovie = favorites.find((favorite) => favorite.id === movie.id);
+    const isFavoriteMovie = favorites.find(
+      (favorite) => favorite.id === movie.id,
+    );
     return !!isFavoriteMovie;
   });
   const navigate = useNavigate();
@@ -52,7 +66,11 @@ function MovieCard({ movie }: { movie: MovieDto }) {
             precision={0.5}
             readOnly
           />
-          {isFavorite ? <FavoriteIcon onClick={handleFavorites} /> : <FavoriteBorderIcon onClick={handleFavorites} />}
+          {isFavorite ? (
+            <FavoriteIcon onClick={handleFavorites} />
+          ) : (
+            <FavoriteBorderIcon onClick={handleFavorites} />
+          )}
         </Stack>
       </Box>
       <CardContent onClick={() => navigate(`/movie/${movie.id}`)}>
