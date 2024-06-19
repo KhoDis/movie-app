@@ -1,51 +1,48 @@
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Box,
-  Card,
-  CardContent,
-  Rating,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { MovieDto } from "../redux/api.ts";
-import React, { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../redux/hooks.ts";
+import { Box, Card, CardContent, Rating, Stack, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import {
-  addFavorite,
-  removeFavorite,
-} from "../redux/features/favoritesSlice.ts";
-import { Poster } from "./Poster.tsx";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { addFavorite, removeFavorite } from "../redux/features/favoritesSlice";
+import { Poster } from "./Poster";
+import { MovieDto } from "../redux/api";
 
-function MovieCard({ movie }: { movie: MovieDto }) {
-  const favorites = useAppSelector(
-    (state) => state.persistedReducer.favorites.movies,
-  );
+type MovieCardProps = {
+  movie: MovieDto;
+};
+
+function MovieCard({ movie }: MovieCardProps) {
+  const favorites = useAppSelector((state) => state.persistedReducer.favorites.movies);
   const dispatch = useAppDispatch();
-  const [isFavorite, setIsFavorite] = useState<boolean>(() => {
-    const isFavoriteMovie = favorites.find(
-      (favorite) => favorite.id === movie.id,
-    );
-    return !!isFavoriteMovie;
-  });
   const navigate = useNavigate();
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
+  useEffect(() => {
+    const isFavoriteMovie = favorites.some((favorite) => favorite.id === movie.id);
+    setIsFavorite(isFavoriteMovie);
+  }, [favorites, movie.id]);
 
   const handleFavorites = (e: React.MouseEvent<HTMLElement>) => {
-    if (!isFavorite) {
-      dispatch(addFavorite(movie));
-      setIsFavorite((prev) => !prev);
-    } else {
-      dispatch(removeFavorite(movie.id));
-      setIsFavorite((prev) => !prev);
-    }
     e.preventDefault();
+    if (isFavorite) {
+      dispatch(removeFavorite(movie.id));
+    } else {
+      dispatch(addFavorite(movie));
+    }
+    setIsFavorite(!isFavorite);
   };
+
+  const handleCardClick = () => {
+    navigate(`/movie/${movie.id}`);
+  };
+
+  const { poster, rating, name, alternativeName, enName, year } = movie;
 
   return (
     <Card>
       <Box sx={{ position: "relative" }}>
-        <Poster poster={movie.poster} />
+        <Poster poster={poster} />
         <Stack
           direction="row"
           justifyContent="space-around"
@@ -57,27 +54,22 @@ function MovieCard({ movie }: { movie: MovieDto }) {
             left: 0,
             width: "100%",
             bgcolor: "rgba(0, 0, 0, 0.54)",
-            color: "white",
+            color: "white"
           }}
         >
-          <Rating
-            name="half-rating"
-            defaultValue={movie.rating.imdb}
-            precision={0.5}
-            readOnly
-          />
+          <Rating name="half-rating" defaultValue={rating.imdb} precision={0.5} readOnly />
           {isFavorite ? (
-            <FavoriteIcon onClick={handleFavorites} />
+            <FavoriteIcon onClick={handleFavorites} sx={{ cursor: "pointer" }} />
           ) : (
-            <FavoriteBorderIcon onClick={handleFavorites} />
+            <FavoriteBorderIcon onClick={handleFavorites} sx={{ cursor: "pointer" }} />
           )}
         </Stack>
       </Box>
-      <CardContent onClick={() => navigate(`/movie/${movie.id}`)}>
+      <CardContent onClick={handleCardClick} sx={{ cursor: "pointer" }}>
         <Typography variant="h5" noWrap>
-          {movie.name ?? movie.alternativeName ?? movie.enName}
+          {name ?? alternativeName ?? enName}
         </Typography>
-        <Typography variant="body2">{movie.year}</Typography>
+        <Typography variant="body2">{year}</Typography>
       </CardContent>
     </Card>
   );
