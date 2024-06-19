@@ -33,6 +33,15 @@ VITE_KINOPOISK_API_KEY=your_api_key_here
 - Просмотр детальной информации о фильме
 - Добавление фильмов в избранное с персистентностью
 
+## Стек
+
+- Vite, ESLint, Prettier
+- React
+- TS
+- Redux, Redux Toolkit, RTK Query, redux-persist
+- MUI
+- React Router
+
 ## Проблемы, требующие внимания, на которых не хватило времени
 
 - Отсутствие тестов
