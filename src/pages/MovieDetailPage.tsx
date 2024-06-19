@@ -8,15 +8,15 @@ function MovieDetailPage() {
   const { data: movie, error, isLoading } = useGetMovieByIdQuery(id!);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Typography>Loading...</Typography>;
   }
 
   if (error) {
-    return <div>Something went wrong: {JSON.stringify(error)}</div>;
+    return <Typography>Something went wrong: {JSON.stringify(error)}</Typography>;
   }
 
   if (!movie) {
-    return <div>Something went wrong. Reload the page</div>;
+    return <Typography>Something went wrong. Reload the page</Typography>;
   }
 
   return (

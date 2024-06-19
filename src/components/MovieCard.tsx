@@ -11,11 +11,7 @@ import { Poster } from "./Poster";
 import { MovieDto } from "../redux/api";
 import FavoriteButton from "./FavoriteButton.tsx";
 
-type MovieCardProps = {
-  movie: MovieDto;
-};
-
-function MovieCard({ movie }: MovieCardProps) {
+function MovieCard({ movie }: { movie: MovieDto }) {
   const navigate = useNavigate();
 
   const handleCardClick = () => {

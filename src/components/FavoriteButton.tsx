@@ -6,15 +6,13 @@ import { addFavorite, removeFavorite } from "../redux/features/favoritesSlice";
 import { MovieDto } from "../redux/api";
 import { IconButton } from "@mui/material";
 
-type FavoriteProps = {
-  movie: MovieDto;
-  color?: string;
-};
-
-const FavoriteButton: React.FC<FavoriteProps> = ({
+function FavoriteButton({
   movie,
   color = "white",
-}) => {
+}: {
+  movie: MovieDto;
+  color?: string;
+}) {
   const favorites = useAppSelector(
     (state) => state.persistedReducer.favorites.movies,
   );
@@ -43,6 +41,6 @@ const FavoriteButton: React.FC<FavoriteProps> = ({
       {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
     </IconButton>
   );
-};
+}
 
 export default FavoriteButton;
