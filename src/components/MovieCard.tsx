@@ -8,7 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { MovieDto } from "../api.ts";
+import { MovieDto } from "../redux/api.ts";
 import { BrokenImage } from "@mui/icons-material";
 
 function MovieCard({ movie }: { movie: MovieDto }) {

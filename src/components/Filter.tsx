@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { Box, Button, Chip, Divider, Slider, Stack, Typography } from "@mui/material";
-import { useGetGenresQuery } from "../api";
+import { useGetGenresQuery } from "../redux/api.ts";
 import { FilterConfig } from "../types.ts";
 
 function FilterOption({

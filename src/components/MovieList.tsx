@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
 import { Grid, Pagination, Stack, Typography } from "@mui/material";
-import { useGetMoviesQuery } from "../api.ts";
+import { useGetMoviesQuery } from "../redux/api.ts";
 import { FilterConfig } from "../types.ts";
 
 function MovieList({ filters }: { filters: FilterConfig }) {

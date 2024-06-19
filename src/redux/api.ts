@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { FilterConfig } from "./types.ts";
+import { FilterConfig } from "../types.ts";
 
 const API_KEY = import.meta.env.VITE_KINOPOISK_API_KEY;
 

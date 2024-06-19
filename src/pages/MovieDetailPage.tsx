@@ -1,5 +1,5 @@
 import { Container, Typography, Box, Rating, Stack, Grid } from "@mui/material";
-import { useGetMovieByIdQuery } from "../api.ts";
+import { useGetMovieByIdQuery } from "../redux/api.ts";
 import { useParams } from "react-router-dom";
 
 function MovieDetailPage() {
