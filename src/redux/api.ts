@@ -12,7 +12,7 @@ export type MovieDocsResponseDto = {
 };
 
 export type MovieDto = {
-  id: string;
+  id: number;
   name: string;
   alternativeName: string;
   enName: string;

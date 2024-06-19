@@ -3,6 +3,7 @@ import { movieApi, valuesApi } from "./api.ts";
 import storage from "redux-persist/lib/storage"
 import {persistReducer} from "redux-persist"
 import {combineReducers} from "@reduxjs/toolkit"
+import { favoritesSlice } from "./features/favoritesSlice.ts";
 
 const persistConfig = {
   key: "root",
@@ -11,14 +12,17 @@ const persistConfig = {
 }
 
 const reducer = combineReducers({
-  [movieApi.reducerPath]: movieApi.reducer,
-  [valuesApi.reducerPath]: valuesApi.reducer,
+  favorites: favoritesSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    [movieApi.reducerPath]: movieApi.reducer,
+    [valuesApi.reducerPath]: valuesApi.reducer,
+    persistedReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(movieApi.middleware)

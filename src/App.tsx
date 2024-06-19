@@ -32,7 +32,7 @@ function ButtonAppBar() {
             <Typography variant="h4" component="h4" m={2} sx={{ flexGrow: 1 }}>
               Movie App
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Button color="inherit" onClick={() => navigate("/favorites")}>Favorites</Button>
           </Toolbar>
         </Container>
       </AppBar>
@@ -48,6 +48,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movie/:id" element={<MovieDetailPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
         </Routes>
       </Router>
     </>

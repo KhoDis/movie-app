@@ -1,6 +1,7 @@
 import { Container, Typography, Box, Rating, Stack, Grid } from "@mui/material";
 import { useGetMovieByIdQuery } from "../redux/api.ts";
 import { useParams } from "react-router-dom";
+import { Poster } from "../components/Poster.tsx";
 
 function MovieDetailPage() {
   const {id} = useParams();
@@ -21,7 +22,7 @@ function MovieDetailPage() {
   return (
     <Container>
       <Stack direction="row" p={2} spacing={2}>
-        <img src={movie.poster.url} alt={movie.name} style={{ width: "300px", height: "auto" }} />
+        <Poster poster={movie.poster}/>
         <Stack spacing={2}>
           <Box>
             <Typography variant="h4" component="h1">{movie.name}</Typography>
