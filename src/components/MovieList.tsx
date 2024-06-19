@@ -28,8 +28,8 @@ function MovieList({ filters }) {
       <Grid container spacing={2}>
         {data?.docs.map((movie) => (
           <Grid item key={movie.id} xs={12} sm={6} md={4} lg={3}>
-            {JSON.stringify(movie)}
-            {/*<MovieCard movie={movie} />*/}
+            {/*{JSON.stringify(movie)}*/}
+            <MovieCard movie={movie} />
           </Grid>
         ))}
       </Grid>
