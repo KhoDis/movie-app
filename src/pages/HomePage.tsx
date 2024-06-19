@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Box, Typography } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import MovieList from "../components/MovieList.tsx";
 import Filter from "../components/Filter.tsx";
 import { FilterConfig } from "../types.ts";
@@ -18,9 +18,6 @@ function HomePage() {
   return (
     <Container>
       <Box my={4}>
-        <Typography variant="h3" gutterBottom>
-          Movie App
-        </Typography>
         <Filter onFilterChange={handleFilterChange} />
         <MovieList filters={filters} />
       </Box>
