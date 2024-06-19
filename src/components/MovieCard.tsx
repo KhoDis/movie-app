@@ -44,16 +44,12 @@ function MovieCard({ movie }: { movie: MovieDto }) {
             padding: "10px",
           }}
         >
-          {movie.rating.imdb ? (
-            <Rating
-              name="half-rating"
-              defaultValue={movie.rating.imdb}
-              precision={0.5}
-              readOnly
-            />
-          ) : (
-            <Typography variant="body2">No rating yet</Typography>
-          )}
+          <Rating
+            name="half-rating"
+            defaultValue={movie.rating.imdb}
+            precision={0.5}
+            readOnly
+          />
         </Box>
       </Box>
       <CardContent>

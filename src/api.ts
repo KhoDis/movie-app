@@ -26,8 +26,13 @@ export type MovieDto = {
   year: number;
   description: string;
   rating: RatingDto;
-  genres: string[];
+  genres: GenreDto[];
   poster: ShortImage;
+};
+
+type GenreDto = {
+  name: string;
+  slug: string;
 };
 
 export type RatingDto = {
@@ -73,11 +78,6 @@ export const movieApi = createApi({
 });
 
 export const { useGetMoviesQuery, useGetMovieByIdQuery } = movieApi;
-
-type GenreDto = {
-  name: string;
-  slug: string;
-};
 
 export const valuesApi = createApi({
   reducerPath: "valuesApi",

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import {
   AppBar,
@@ -9,8 +9,11 @@ import {
   Typography
 } from "@mui/material";
 import MovieIcon from '@mui/icons-material/Movie';
+import MovieDetailPage from "./pages/MovieDetailPage.tsx";
 
 function ButtonAppBar() {
+  const navigate = useNavigate();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -22,6 +25,7 @@ function ButtonAppBar() {
               color="inherit"
               aria-label="menu"
               sx={{ my: 2 }}
+              onClick={() => navigate(`/`)}
             >
               <MovieIcon fontSize="large"/>
             </IconButton>
@@ -39,11 +43,11 @@ function ButtonAppBar() {
 function App() {
   return (
     <>
-      <ButtonAppBar />
       <Router>
+        <ButtonAppBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/*<Route path="/movie/:id" element={<MovieDetailPage />} />*/}
+          <Route path="/movie/:id" element={<MovieDetailPage />} />
         </Routes>
       </Router>
     </>
