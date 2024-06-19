@@ -25,7 +25,7 @@ function ButtonAppBar() {
             >
               <MovieIcon fontSize="large"/>
             </IconButton>
-            <Typography variant="h3" component="h3" m={2} sx={{ flexGrow: 1 }}>
+            <Typography variant="h4" component="h4" m={2} sx={{ flexGrow: 1 }}>
               Movie App
             </Typography>
             <Button color="inherit">Login</Button>
