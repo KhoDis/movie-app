@@ -14,6 +14,8 @@ export type MovieDocsResponseDto = {
 export type MovieDto = {
   id: string;
   name: string;
+  alternativeName: string;
+  enName: string;
   type:
     | "movie"
     | "tv-series"
